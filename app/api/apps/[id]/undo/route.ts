@@ -64,7 +64,7 @@ export async function POST(
     const updatedApp = await prisma.app.update({
       where: { id },
       data: {
-        schema: previousVersion.schema,
+       schema: previousVersion.schema as object,
         version: previousVersion.version,
       },
     });
