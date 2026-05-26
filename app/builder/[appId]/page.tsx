@@ -105,6 +105,13 @@ export default async function BuilderPage({ params }: Props) {
           </div>
 
           <div className="flex items-center gap-3">
+            <Link
+              href="/"
+              className="hidden h-11 items-center rounded-xl border border-[#E5E7EB] bg-white px-4 text-sm font-semibold text-[#111111] transition hover:bg-[#FAFAFA] md:flex"
+            >
+              Home
+            </Link>
+
             <div className="hidden rounded-full border border-[#E5E7EB] bg-white px-4 py-2 text-sm font-medium text-[#6B7280] md:block">
               Connected
             </div>
