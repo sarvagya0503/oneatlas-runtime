@@ -32,7 +32,7 @@ export async function POST(req: Request, { params }: Props) {
       data: {
         appId: app.id,
         token,
-        schema: app.schema,
+      schema: app.schema as object,
         expiresAt,
       },
     });
