@@ -19,6 +19,23 @@ export default function HomePage() {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
 
+  function scrollToGenerator() {
+    document.getElementById("generator")?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }
+
+  function previewPrompt(templateName: string) {
+    setPrompt(
+      `Create a ${templateName.toLowerCase()} with dashboards and workflow sections`
+    );
+
+    scrollToGenerator();
+
+    toast.success("Prompt loaded in generator");
+  }
+
   async function generateApp() {
     if (!prompt.trim()) {
       toast.error("Please enter a prompt");
@@ -106,11 +123,7 @@ export default function HomePage() {
           </div>
 
           <button
-            onClick={() =>
-              document
-                .getElementById("generator")
-                ?.scrollIntoView({ behavior: "smooth" })
-            }
+            onClick={scrollToGenerator}
             className="h-12 rounded-xl bg-[#FF6600] px-[22px] text-[15px] font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[#E65C00]"
           >
             Start Building
@@ -136,11 +149,7 @@ export default function HomePage() {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <button
-              onClick={() =>
-                document
-                  .getElementById("generator")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
+              onClick={scrollToGenerator}
               className="h-12 rounded-xl bg-[#FF6600] px-[22px] text-[15px] font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[#E65C00]"
             >
               Generate App
@@ -296,11 +305,7 @@ export default function HomePage() {
                 </button>
 
                 <button
-                  onClick={() =>
-                    setPrompt(
-                      `Create a ${template.name.toLowerCase()} with dashboards and workflow sections`
-                    )
-                  }
+                  onClick={() => previewPrompt(template.name)}
                   className="h-11 rounded-xl border border-[#E5E7EB] bg-white px-4 text-sm font-semibold text-[#111111] transition hover:bg-[#FAFAFA]"
                 >
                   Preview Prompt
