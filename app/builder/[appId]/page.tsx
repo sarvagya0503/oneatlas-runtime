@@ -84,39 +84,39 @@ export default async function BuilderPage({ params }: Props) {
   return (
     <main className="min-h-screen bg-[#F5F5EE] pb-44 text-[#111111]">
       <header className="sticky top-0 z-40 border-b border-[#E5E7EB] bg-[#F5F5EE]/95">
-        <div className="mx-auto flex h-[72px] max-w-[1280px] items-center justify-between px-5 md:px-8">
-          <div className="flex items-center gap-3">
+        <div className="mx-auto flex min-h-[72px] max-w-[1280px] items-center justify-between gap-3 px-4 py-3 md:px-8">
+          <div className="flex min-w-0 items-center gap-3">
             <Link
               href="/"
-              className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#111111] text-sm font-semibold text-white"
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#111111] text-sm font-semibold text-white"
             >
               OA
             </Link>
 
-            <div>
-              <h1 className="text-[17px] font-semibold tracking-[-0.02em] text-[#111111]">
+            <div className="min-w-0">
+              <h1 className="truncate text-[16px] font-semibold tracking-[-0.02em] text-[#111111] md:text-[17px]">
                 {app.name}
               </h1>
 
-              <p className="text-sm text-[#6B7280]">
+              <p className="truncate text-xs text-[#6B7280] md:text-sm">
                 Runtime Builder · Schema v{app.version}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex shrink-0 items-center gap-2 md:gap-3">
             <Link
               href="/"
-              className="hidden h-11 items-center rounded-xl border border-[#E5E7EB] bg-white px-4 text-sm font-semibold text-[#111111] transition hover:bg-[#FAFAFA] md:flex"
+              className="flex h-10 items-center rounded-xl border border-[#E5E7EB] bg-white px-3 text-sm font-semibold text-[#111111] transition hover:bg-[#FAFAFA] md:h-11 md:px-4"
             >
               Home
             </Link>
 
-            <div className="hidden rounded-full border border-[#E5E7EB] bg-white px-4 py-2 text-sm font-medium text-[#6B7280] md:block">
+            <div className="hidden rounded-full border border-[#E5E7EB] bg-white px-4 py-2 text-sm font-medium text-[#6B7280] lg:block">
               Connected
             </div>
 
-            <button className="h-11 rounded-xl border border-[#E5E7EB] bg-white px-4 text-sm font-semibold text-[#111111] transition hover:bg-[#FAFAFA]">
+            <button className="hidden h-11 rounded-xl border border-[#E5E7EB] bg-white px-4 text-sm font-semibold text-[#111111] transition hover:bg-[#FAFAFA] sm:flex sm:items-center">
               Share
             </button>
 
@@ -125,7 +125,7 @@ export default async function BuilderPage({ params }: Props) {
         </div>
       </header>
 
-      <section className="mx-auto grid max-w-[1280px] gap-5 px-5 py-8 md:px-8 lg:grid-cols-[260px_1fr_340px]">
+      <section className="mx-auto grid max-w-[1280px] gap-5 px-4 py-8 md:px-8 lg:grid-cols-[260px_1fr_340px]">
         <aside className="rounded-[24px] border border-[#E5E7EB] bg-white p-6">
           <h2 className="text-xs font-semibold uppercase tracking-[0.08em] text-[#9CA3AF]">
             Component Tree
@@ -159,14 +159,14 @@ export default async function BuilderPage({ params }: Props) {
           </div>
         </aside>
 
-        <section className="rounded-[24px] border border-[#E5E7EB] bg-white p-6">
+        <section className="rounded-[24px] border border-[#E5E7EB] bg-white p-5 md:p-6">
           <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-start">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#FF6600]">
                 Runtime Canvas
               </p>
 
-              <h2 className="mt-3 text-4xl font-semibold tracking-[-0.03em] text-[#111111]">
+              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-[#111111] md:text-4xl">
                 Live app preview
               </h2>
 
@@ -184,9 +184,9 @@ export default async function BuilderPage({ params }: Props) {
             {schema.pages.map((page) => (
               <div
                 key={page.id}
-                className="rounded-[24px] border border-[#E5E7EB] bg-[#F5F5EE] p-5"
+                className="rounded-[24px] border border-[#E5E7EB] bg-[#F5F5EE] p-4 md:p-5"
               >
-                <div className="mb-5 flex items-center justify-between">
+                <div className="mb-5 flex items-center justify-between gap-4">
                   <div>
                     <h3 className="text-[22px] font-semibold tracking-[-0.02em] text-[#111111]">
                       {page.name}
@@ -197,7 +197,7 @@ export default async function BuilderPage({ params }: Props) {
                     </p>
                   </div>
 
-                  <div className="rounded-full border border-[#E5E7EB] bg-white px-3 py-1 text-xs font-medium text-[#6B7280]">
+                  <div className="hidden rounded-full border border-[#E5E7EB] bg-white px-3 py-1 text-xs font-medium text-[#6B7280] sm:block">
                     Schema page
                   </div>
                 </div>
@@ -206,11 +206,11 @@ export default async function BuilderPage({ params }: Props) {
                   {page.components.map((component) => (
                     <div
                       key={component.id}
-                      className="rounded-[24px] border border-[#E5E7EB] bg-white p-5 transition hover:border-[#D1D5DB]"
+                      className="rounded-[24px] border border-[#E5E7EB] bg-white p-4 transition hover:border-[#D1D5DB] md:p-5"
                     >
                       <div className="mb-5 flex items-center justify-between gap-4">
                         <div>
-                          <h4 className="text-[22px] font-semibold tracking-[-0.02em] text-[#111111]">
+                          <h4 className="text-[20px] font-semibold tracking-[-0.02em] text-[#111111] md:text-[22px]">
                             {component.title}
                           </h4>
 
