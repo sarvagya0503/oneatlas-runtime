@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model App {
+  id         String   @id @default(cuid())
+  name       String
+  templateId String
+  schema     Json
+  version    Int      @default(1)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  versions   SchemaVersion[]
+  mutations  MutationLog[]
+  previews   PreviewSnapshot[]
+}
+
+model SchemaVersion {
+  id        String   @id @default(cuid())
+  appId     String
+  version   Int
+  schema    Json
+  createdAt DateTime @default(now())
+
+  app       App      @relation(fields: [appId], references: [id], onDelete: Cascade)
+}
+
+model MutationLog {
+  id          String   @id @default(cuid())
+  appId       String
+  instruction String
+  summary     String
+  createdAt   DateTime @default(now())
+
+  app         App      @relation(fields: [appId], references: [id], onDelete: Cascade)
+}
+
+model PreviewSnapshot {
+  id        String   @id @default(cuid())
+  appId     String
+  token     String   @unique
+  schema    Json
+  createdAt DateTime @default(now())
+  expiresAt DateTime?
+
+  app       App      @relation(fields: [appId], references: [id], onDelete: Cascade)
+}
