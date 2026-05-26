@@ -49,21 +49,23 @@ export default async function BuilderPage({ params }: Props) {
 
   if (!app) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#F8FAFC] px-6">
-        <div className="rounded-3xl bg-white p-10 text-center shadow-xl shadow-indigo-100">
-          <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#635BFF] text-lg font-bold text-white">
+      <main className="flex min-h-screen items-center justify-center bg-[#F5F5EE] px-5">
+        <div className="rounded-[24px] border border-[#E5E7EB] bg-white p-10 text-center">
+          <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-[#111111] text-sm font-semibold text-white">
             OA
           </div>
 
-          <h1 className="text-3xl font-bold text-[#1A1F36]">App not found</h1>
+          <h1 className="text-3xl font-semibold tracking-[-0.03em] text-[#111111]">
+            App not found
+          </h1>
 
-          <p className="mt-3 text-slate-500">
+          <p className="mt-3 text-[#6B7280]">
             This generated runtime app does not exist.
           </p>
 
           <Link
             href="/"
-            className="mt-6 inline-block rounded-2xl bg-[#635BFF] px-6 py-3 font-semibold text-white shadow-lg shadow-indigo-100 transition hover:bg-[#5148f5]"
+            className="mt-6 inline-flex h-12 items-center rounded-xl bg-[#FF6600] px-[22px] text-[15px] font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[#E65C00]"
           >
             Go back home
           </Link>
@@ -74,32 +76,40 @@ export default async function BuilderPage({ params }: Props) {
 
   const schema = app.schema as AppSchema;
 
+  const componentCount = schema.pages.reduce(
+    (total, page) => total + page.components.length,
+    0
+  );
+
   return (
-    <main className="min-h-screen bg-[#F8FAFC] pb-40 text-[#1A1F36]">
-      <header className="sticky top-0 z-40 border-b border-white/80 bg-white/75 px-6 py-4 shadow-sm backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
+    <main className="min-h-screen bg-[#F5F5EE] pb-44 text-[#111111]">
+      <header className="sticky top-0 z-40 border-b border-[#E5E7EB] bg-[#F5F5EE]/95">
+        <div className="mx-auto flex h-[72px] max-w-[1280px] items-center justify-between px-5 md:px-8">
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#635BFF] text-sm font-bold text-white shadow-lg shadow-indigo-100"
+              className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#111111] text-sm font-semibold text-white"
             >
               OA
             </Link>
 
             <div>
-              <h1 className="text-xl font-bold tracking-tight">{app.name}</h1>
-              <p className="text-sm text-slate-500">
+              <h1 className="text-[17px] font-semibold tracking-[-0.02em] text-[#111111]">
+                {app.name}
+              </h1>
+
+              <p className="text-sm text-[#6B7280]">
                 Runtime Builder · Schema v{app.version}
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="hidden rounded-full border border-emerald-100 bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700 md:block">
-              ● Connected
+            <div className="hidden rounded-full border border-[#E5E7EB] bg-white px-4 py-2 text-sm font-medium text-[#6B7280] md:block">
+              Connected
             </div>
 
-            <button className="rounded-2xl border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-[#635BFF]/40 hover:text-[#635BFF]">
+            <button className="h-11 rounded-xl border border-[#E5E7EB] bg-white px-4 text-sm font-semibold text-[#111111] transition hover:bg-[#FAFAFA]">
               Share
             </button>
 
@@ -108,16 +118,16 @@ export default async function BuilderPage({ params }: Props) {
         </div>
       </header>
 
-      <section className="mx-auto grid max-w-7xl gap-6 px-6 py-8 lg:grid-cols-[260px_1fr_340px]">
-        <aside className="rounded-3xl border border-white bg-white/85 p-5 shadow-sm backdrop-blur-xl">
-          <h2 className="text-sm font-bold uppercase tracking-wide text-slate-400">
+      <section className="mx-auto grid max-w-[1280px] gap-5 px-5 py-8 md:px-8 lg:grid-cols-[260px_1fr_340px]">
+        <aside className="rounded-[24px] border border-[#E5E7EB] bg-white p-6">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.08em] text-[#9CA3AF]">
             Component Tree
           </h2>
 
-          <div className="mt-5 space-y-3">
+          <div className="mt-6 space-y-4">
             {schema.pages.map((page) => (
               <div key={page.id}>
-                <div className="rounded-xl bg-[#F8FAFC] px-3 py-2 text-sm font-semibold text-[#1A1F36]">
+                <div className="rounded-xl bg-[#F5F5EE] px-3 py-2 text-sm font-semibold text-[#111111]">
                   {page.name}
                 </div>
 
@@ -125,10 +135,13 @@ export default async function BuilderPage({ params }: Props) {
                   {page.components.map((component) => (
                     <div
                       key={component.id}
-                      className="rounded-xl border border-slate-100 bg-white px-3 py-2 text-sm text-slate-600 transition hover:border-[#635BFF]/30 hover:text-[#635BFF]"
+                      className="rounded-xl border border-[#E5E7EB] bg-white px-3 py-2 transition hover:border-[#D1D5DB]"
                     >
-                      <div className="font-medium">{component.title}</div>
-                      <div className="mt-1 text-xs capitalize text-slate-400">
+                      <div className="text-sm font-medium text-[#111111]">
+                        {component.title}
+                      </div>
+
+                      <div className="mt-1 text-xs capitalize text-[#9CA3AF]">
                         {component.type}
                       </div>
                     </div>
@@ -139,16 +152,23 @@ export default async function BuilderPage({ params }: Props) {
           </div>
         </aside>
 
-        <section className="rounded-[2rem] border border-white bg-white/90 p-6 shadow-xl shadow-indigo-100/60 backdrop-blur-xl">
-          <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-center">
+        <section className="rounded-[24px] border border-[#E5E7EB] bg-white p-6">
+          <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-start">
             <div>
-              <h2 className="text-2xl font-bold">Live App Preview</h2>
-              <p className="text-sm text-slate-500">
-                Rendered from runtime schema, not hardcoded UI.
+              <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#FF6600]">
+                Runtime Canvas
+              </p>
+
+              <h2 className="mt-3 text-4xl font-semibold tracking-[-0.03em] text-[#111111]">
+                Live app preview
+              </h2>
+
+              <p className="mt-3 text-sm leading-6 text-[#6B7280]">
+                Rendered from a stored runtime schema, not hardcoded UI.
               </p>
             </div>
 
-            <span className="w-fit rounded-full bg-[#00D4B1]/10 px-4 py-2 text-sm font-semibold text-[#008f78]">
+            <span className="w-fit rounded-full border border-[#E5E7EB] bg-white px-4 py-2 text-sm font-medium text-[#6B7280]">
               Template: {app.templateId}
             </span>
           </div>
@@ -157,37 +177,42 @@ export default async function BuilderPage({ params }: Props) {
             {schema.pages.map((page) => (
               <div
                 key={page.id}
-                className="rounded-3xl border border-slate-100 bg-[#F8FAFC] p-6"
+                className="rounded-[24px] border border-[#E5E7EB] bg-[#F5F5EE] p-5"
               >
                 <div className="mb-5 flex items-center justify-between">
                   <div>
-                    <h3 className="text-2xl font-bold">{page.name}</h3>
-                    <p className="text-sm text-slate-500">
+                    <h3 className="text-[22px] font-semibold tracking-[-0.02em] text-[#111111]">
+                      {page.name}
+                    </h3>
+
+                    <p className="mt-1 text-sm text-[#6B7280]">
                       {page.components.length} runtime components
                     </p>
                   </div>
 
-                  <div className="h-11 w-11 rounded-2xl bg-gradient-to-br from-[#635BFF] to-[#00D4FF]" />
+                  <div className="rounded-full border border-[#E5E7EB] bg-white px-3 py-1 text-xs font-medium text-[#6B7280]">
+                    Schema page
+                  </div>
                 </div>
 
                 <div className="grid gap-5">
                   {page.components.map((component) => (
                     <div
                       key={component.id}
-                      className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                      className="rounded-[24px] border border-[#E5E7EB] bg-white p-5 transition hover:border-[#D1D5DB]"
                     >
                       <div className="mb-5 flex items-center justify-between gap-4">
                         <div>
-                          <h4 className="text-lg font-bold">
+                          <h4 className="text-[22px] font-semibold tracking-[-0.02em] text-[#111111]">
                             {component.title}
                           </h4>
 
-                          <p className="text-sm capitalize text-slate-500">
+                          <p className="mt-1 text-sm capitalize text-[#6B7280]">
                             {component.type} component
                           </p>
                         </div>
 
-                        <span className="rounded-full bg-[#635BFF]/10 px-3 py-1 text-xs font-semibold text-[#635BFF]">
+                        <span className="rounded-full bg-[#F5F5EE] px-3 py-1 text-xs font-medium text-[#6B7280]">
                           {component.fields?.length || 0} fields
                         </span>
                       </div>
@@ -201,30 +226,26 @@ export default async function BuilderPage({ params }: Props) {
           </div>
         </section>
 
-        <div className="space-y-6">
-          <aside className="rounded-3xl border border-white bg-white/85 p-5 shadow-sm backdrop-blur-xl">
-            <h2 className="text-sm font-bold uppercase tracking-wide text-slate-400">
+        <div className="space-y-5">
+          <aside className="rounded-[24px] border border-[#E5E7EB] bg-white p-6">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.08em] text-[#9CA3AF]">
               Schema Summary
             </h2>
 
-            <div className="mt-5 space-y-4">
+            <div className="mt-6 space-y-3">
               <SummaryCard label="Full App ID" value={app.id} />
               <SummaryCard label="Template" value={app.templateId} />
               <SummaryCard label="Version" value={`v${app.version}`} />
               <SummaryCard label="Pages" value={`${schema.pages.length}`} />
-              <SummaryCard
-                label="Components"
-                value={`${schema.pages.reduce(
-                  (total, page) => total + page.components.length,
-                  0
-                )}`}
-              />
+              <SummaryCard label="Components" value={`${componentCount}`} />
             </div>
 
-            <div className="mt-6 rounded-2xl bg-[#0A2540] p-4 text-white">
-              <p className="text-sm font-semibold">Conversational Runtime</p>
+            <div className="mt-6 rounded-[18px] border border-[#E5E7EB] bg-[#F5F5EE] p-4">
+              <p className="text-sm font-semibold text-[#111111]">
+                Conversational runtime
+              </p>
 
-              <p className="mt-2 text-sm leading-6 text-slate-300">
+              <p className="mt-2 text-sm leading-6 text-[#6B7280]">
                 Suggestions adapt to the selected template. Schemas evolve
                 through targeted mutations, not full rewrites.
               </p>
@@ -233,8 +254,8 @@ export default async function BuilderPage({ params }: Props) {
 
           <HistoryPanel appId={app.id} />
 
-          <aside className="rounded-3xl border border-white bg-white/85 p-5 shadow-sm backdrop-blur-xl">
-            <h2 className="text-sm font-bold uppercase tracking-wide text-slate-400">
+          <aside className="rounded-[24px] border border-[#E5E7EB] bg-white p-6">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.08em] text-[#9CA3AF]">
               Preview Links
             </h2>
 
@@ -257,12 +278,14 @@ export default async function BuilderPage({ params }: Props) {
 
 function SummaryCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl border border-slate-100 bg-[#F8FAFC] p-4">
-      <p className="text-xs font-bold uppercase tracking-wide text-slate-400">
+    <div className="rounded-[18px] border border-[#E5E7EB] bg-[#F5F5EE] p-4">
+      <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#9CA3AF]">
         {label}
       </p>
 
-      <p className="mt-1 break-all font-semibold text-[#1A1F36]">{value}</p>
+      <p className="mt-1 break-all text-sm font-semibold text-[#111111]">
+        {value}
+      </p>
     </div>
   );
 }

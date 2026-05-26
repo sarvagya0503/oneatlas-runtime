@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -8,6 +9,7 @@ type Props = {
 };
 
 export default function PreviewButton({ appId }: Props) {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   async function generatePreview() {
@@ -21,18 +23,17 @@ export default function PreviewButton({ appId }: Props) {
       const data = await response.json();
 
       if (!data.success) {
-        toast.error(data.error || "Failed to create preview");
+        toast.error(data.error || "Failed to generate preview");
         return;
       }
 
-      const fullUrl = `${window.location.origin}${data.data.previewUrl}`;
+      toast.success("Preview snapshot created");
+      router.refresh();
 
-      await navigator.clipboard.writeText(fullUrl);
-
-      toast.success("Preview link copied to clipboard");
+      window.open(`/preview/${data.data.token}`, "_blank");
     } catch (error) {
       console.log(error);
-      toast.error("Failed to generate preview");
+      toast.error("Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -42,9 +43,9 @@ export default function PreviewButton({ appId }: Props) {
     <button
       onClick={generatePreview}
       disabled={loading}
-      className="rounded-2xl bg-[#635BFF] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-100 transition hover:-translate-y-0.5 hover:bg-[#5148f5] disabled:cursor-not-allowed disabled:opacity-50"
+      className="h-11 rounded-xl bg-[#FF6600] px-[22px] text-[15px] font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[#E65C00] disabled:cursor-not-allowed disabled:opacity-60"
     >
-      {loading ? "Generating..." : "Preview"}
+      {loading ? "Generating..." : "Generate Preview"}
     </button>
   );
 }

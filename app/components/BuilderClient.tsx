@@ -110,14 +110,14 @@ export default function BuilderClient({ appId, templateId }: Props) {
   }
 
   return (
-    <div className="fixed bottom-5 left-1/2 z-50 w-[94%] max-w-5xl -translate-x-1/2 rounded-[2rem] border border-white bg-white/90 p-4 shadow-2xl shadow-indigo-100 backdrop-blur-xl">
+    <div className="fixed bottom-5 left-1/2 z-50 w-[94%] max-w-5xl -translate-x-1/2 rounded-[28px] border border-[#E5E7EB] bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.02),0_4px_24px_rgba(0,0,0,0.03)]">
       <div className="mb-4 flex flex-wrap gap-2">
         {suggestions.map((suggestion) => (
           <button
             key={suggestion}
             onClick={() => sendInstruction(suggestion)}
             disabled={loading}
-            className="rounded-full border border-slate-200 bg-[#F8FAFC] px-4 py-2 text-xs font-medium text-slate-600 transition hover:border-[#635BFF]/40 hover:text-[#635BFF] disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-full border border-[#E5E7EB] bg-[#F5F5EE] px-4 py-2 text-xs font-medium text-[#6B7280] transition hover:-translate-y-0.5 hover:border-[#D1D5DB] hover:text-[#111111] disabled:cursor-not-allowed disabled:opacity-50"
           >
             {suggestion}
           </button>
@@ -134,13 +134,13 @@ export default function BuilderClient({ appId, templateId }: Props) {
             }
           }}
           placeholder="Describe how the runtime schema should evolve..."
-          className="flex-1 rounded-2xl border border-slate-200 bg-[#F8FAFC] px-4 py-3 text-sm outline-none transition focus:border-[#635BFF]"
+          className="flex-1 rounded-[18px] border border-[#E5E7EB] bg-[#FAFAFA] px-4 py-3 text-sm text-[#111111] outline-none transition placeholder:text-[#9CA3AF] focus:border-[#FF6600]"
         />
 
         <button
           onClick={() => sendInstruction()}
           disabled={loading}
-          className="rounded-2xl bg-[#635BFF] px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-100 transition hover:bg-[#5148f5] disabled:cursor-not-allowed disabled:opacity-50"
+          className="h-12 rounded-xl bg-[#FF6600] px-[22px] text-[15px] font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[#E65C00] disabled:cursor-not-allowed disabled:opacity-60"
         >
           {loading ? "Updating..." : "Send"}
         </button>

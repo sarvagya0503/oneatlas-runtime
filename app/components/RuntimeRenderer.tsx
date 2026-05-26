@@ -15,9 +15,7 @@ type Props = {
   component: Component;
 };
 
-export default function RuntimeRenderer({
-  component,
-}: Props) {
+export default function RuntimeRenderer({ component }: Props) {
   switch (component.type) {
     case "metrics":
       return <MetricsRenderer component={component} />;
@@ -42,21 +40,17 @@ export default function RuntimeRenderer({
   }
 }
 
-function MetricsRenderer({
-  component,
-}: Props) {
+function MetricsRenderer({ component }: Props) {
   return (
     <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
       {component.fields?.map((field, index) => (
         <div
           key={field.id}
-          className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm"
+          className="rounded-[18px] border border-[#E5E7EB] bg-white p-5"
         >
-          <p className="text-sm text-slate-500">
-            {field.name}
-          </p>
+          <p className="text-sm text-[#6B7280]">{field.name}</p>
 
-          <h3 className="mt-3 text-3xl font-bold">
+          <h3 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-[#111111]">
             {index === 0
               ? "12.4K"
               : index === 1
@@ -66,7 +60,7 @@ function MetricsRenderer({
               : "89%"}
           </h3>
 
-          <p className="mt-2 text-xs font-semibold text-emerald-600">
+          <p className="mt-2 text-xs font-medium text-[#FF6600]">
             +12.4% this month
           </p>
         </div>
@@ -75,18 +69,16 @@ function MetricsRenderer({
   );
 }
 
-function TableRenderer({
-  component,
-}: Props) {
+function TableRenderer({ component }: Props) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-slate-200">
+    <div className="overflow-hidden rounded-[18px] border border-[#E5E7EB] bg-white">
       <table className="w-full border-collapse">
-        <thead className="bg-[#F8FAFC]">
+        <thead className="bg-[#F5F5EE]">
           <tr>
             {component.fields?.map((field) => (
               <th
                 key={field.id}
-                className="border-b border-slate-200 px-4 py-3 text-left text-sm font-semibold text-slate-600"
+                className="border-b border-[#E5E7EB] px-4 py-3 text-left text-sm font-semibold text-[#6B7280]"
               >
                 {field.name}
               </th>
@@ -96,22 +88,10 @@ function TableRenderer({
 
         <tbody>
           {[1, 2, 3, 4].map((row) => (
-            <tr
-              key={row}
-              className="border-b border-slate-100 last:border-0"
-            >
+            <tr key={row} className="border-b border-[#ECECEC] last:border-0">
               {component.fields?.map((field) => (
-                <td
-                  key={field.id}
-                  className="px-4 py-3 text-sm text-slate-600"
-                >
-                  {field.type === "email"
-                    ? "client@example.com"
-                    : field.type === "currency"
-                    ? "$12,400"
-                    : field.type === "select"
-                    ? "Active"
-                    : "Sample Data"}
+                <td key={field.id} className="px-4 py-3 text-sm text-[#111111]">
+                  {getSampleValue(field.type)}
                 </td>
               ))}
             </tr>
@@ -122,20 +102,20 @@ function TableRenderer({
   );
 }
 
-function KanbanRenderer({
-  component,
-}: Props) {
+function KanbanRenderer({ component }: Props) {
   return (
     <div className="grid gap-4 md:grid-cols-4">
       {component.fields?.map((field) => (
         <div
           key={field.id}
-          className="rounded-2xl bg-[#F8FAFC] p-4"
+          className="rounded-[18px] border border-[#E5E7EB] bg-[#F5F5EE] p-4"
         >
           <div className="mb-4 flex items-center justify-between">
-            <h3 className="font-bold">{field.name}</h3>
+            <h3 className="text-sm font-semibold text-[#111111]">
+              {field.name}
+            </h3>
 
-            <span className="rounded-full bg-white px-2 py-1 text-xs font-semibold text-slate-500 shadow-sm">
+            <span className="rounded-full border border-[#E5E7EB] bg-white px-2 py-1 text-xs font-medium text-[#6B7280]">
               4
             </span>
           </div>
@@ -144,14 +124,14 @@ function KanbanRenderer({
             {[1, 2].map((card) => (
               <div
                 key={card}
-                className="rounded-xl bg-white p-4 shadow-sm"
+                className="rounded-xl border border-[#E5E7EB] bg-white p-4"
               >
-                <p className="font-medium">
-                  Enterprise Account
+                <p className="text-sm font-semibold text-[#111111]">
+                  Runtime Item
                 </p>
 
-                <p className="mt-2 text-sm text-slate-500">
-                  Revenue opportunity pipeline
+                <p className="mt-2 text-xs leading-5 text-[#6B7280]">
+                  Schema-driven workflow card
                 </p>
               </div>
             ))}
@@ -162,23 +142,23 @@ function KanbanRenderer({
   );
 }
 
-function ActivityRenderer({
-  component,
-}: Props) {
+function ActivityRenderer({ component }: Props) {
   return (
     <div className="space-y-3">
       {component.fields?.map((field) => (
         <div
           key={field.id}
-          className="flex items-start gap-4 rounded-2xl border border-slate-100 bg-white p-4"
+          className="flex items-start gap-4 rounded-[18px] border border-[#E5E7EB] bg-white p-4"
         >
-          <div className="mt-1 h-3 w-3 rounded-full bg-[#635BFF]" />
+          <div className="mt-1.5 h-2.5 w-2.5 rounded-full bg-[#FF6600]" />
 
           <div>
-            <p className="font-semibold">{field.name}</p>
+            <p className="text-sm font-semibold text-[#111111]">
+              {field.name}
+            </p>
 
-            <p className="mt-1 text-sm text-slate-500">
-              Activity completed successfully.
+            <p className="mt-1 text-sm text-[#6B7280]">
+              Runtime activity recorded successfully.
             </p>
           </div>
         </div>
@@ -187,22 +167,24 @@ function ActivityRenderer({
   );
 }
 
-function AlertRenderer({
-  component,
-}: Props) {
+function AlertRenderer({ component }: Props) {
   return (
     <div className="space-y-3">
       {component.fields?.map((field) => (
         <div
           key={field.id}
-          className="rounded-2xl border border-amber-200 bg-amber-50 p-4"
+          className="rounded-[18px] border border-[#E5E7EB] bg-white p-4"
         >
-          <p className="font-semibold text-amber-800">
-            {field.name}
-          </p>
+          <div className="mb-2 flex items-center gap-2">
+            <span className="h-2.5 w-2.5 rounded-full bg-[#FF6600]" />
 
-          <p className="mt-1 text-sm text-amber-700">
-            Attention required for this workflow.
+            <p className="text-sm font-semibold text-[#111111]">
+              {field.name}
+            </p>
+          </div>
+
+          <p className="text-sm leading-6 text-[#6B7280]">
+            Attention required for this operational workflow.
           </p>
         </div>
       ))}
@@ -210,21 +192,21 @@ function AlertRenderer({
   );
 }
 
-function ChartRenderer({
-  component,
-}: Props) {
+function ChartRenderer({ component }: Props) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5">
+    <div className="rounded-[18px] border border-[#E5E7EB] bg-white p-5">
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h3 className="font-bold">{component.title}</h3>
+          <h3 className="text-sm font-semibold text-[#111111]">
+            {component.title}
+          </h3>
 
-          <p className="text-sm text-slate-500">
+          <p className="mt-1 text-sm text-[#6B7280]">
             Runtime analytics visualization
           </p>
         </div>
 
-        <div className="rounded-full bg-[#635BFF]/10 px-3 py-1 text-xs font-semibold text-[#635BFF]">
+        <div className="rounded-full border border-[#E5E7EB] bg-[#F5F5EE] px-3 py-1 text-xs font-medium text-[#6B7280]">
           Live
         </div>
       </div>
@@ -233,9 +215,10 @@ function ChartRenderer({
         {[45, 65, 30, 80, 50, 90, 70].map((height, index) => (
           <div
             key={index}
-            className="flex-1 rounded-t-2xl bg-gradient-to-t from-[#635BFF] to-[#00D4FF]"
+            className="flex-1 rounded-t-xl bg-[#111111]"
             style={{
               height: `${height}%`,
+              opacity: 0.2 + index * 0.08,
             }}
           />
         ))}
@@ -244,18 +227,18 @@ function ChartRenderer({
   );
 }
 
-function DefaultRenderer({
-  component,
-}: Props) {
+function DefaultRenderer({ component }: Props) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5">
-      <h3 className="font-bold">{component.title}</h3>
+    <div className="rounded-[18px] border border-[#E5E7EB] bg-white p-5">
+      <h3 className="text-sm font-semibold text-[#111111]">
+        {component.title}
+      </h3>
 
       <div className="mt-4 space-y-2">
         {component.fields?.map((field) => (
           <div
             key={field.id}
-            className="rounded-xl bg-[#F8FAFC] px-4 py-3"
+            className="rounded-xl border border-[#E5E7EB] bg-[#F5F5EE] px-4 py-3 text-sm text-[#111111]"
           >
             {field.name}
           </div>
@@ -263,4 +246,14 @@ function DefaultRenderer({
       </div>
     </div>
   );
+}
+
+function getSampleValue(type: string) {
+  if (type === "email") return "client@example.com";
+  if (type === "currency") return "$12,400";
+  if (type === "select") return "Active";
+  if (type === "number") return "124";
+  if (type === "date") return "26 May 2026";
+  if (type === "percentage") return "89%";
+  return "Sample data";
 }
