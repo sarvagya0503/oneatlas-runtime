@@ -13,161 +13,80 @@ const plans = [
   {
     name: "Studio",
     subtitle: "For founders launching production apps.",
-    price: "$24/mo",
+    price: "$24",
+    suffix: "/month",
     cta: "Upgrade to Studio",
+    previous: "Explorer",
   },
   {
     name: "Scale",
     subtitle: "For startups building serious AI software.",
-    price: "$59/mo",
+    price: "$59",
+    suffix: "/month",
     cta: "Start Scaling",
+    previous: "Studio",
     highlighted: true,
   },
   {
     name: "Orbit",
     subtitle: "For high-growth companies at scale.",
-    price: "$149/mo",
+    price: "$149",
+    suffix: "/month",
     cta: "Contact Sales",
+    previous: "Scale",
   },
 ];
 
-const rows = [
-  [
-    "AI Build Credits",
+const planFeatures: Record<string, string[]> = {
+  Explorer: [
     "30 AI build credits",
-    "150 AI build credits",
-    "500 AI build credits",
-    "1,500 AI build credits",
-  ],
-
-  [
-    "Automation Credits",
     "200 automation credits",
-    "5,000 automation credits",
-    "20,000 automation credits",
-    "75,000 automation credits",
-  ],
-
-  [
-    "Projects",
     "Unlimited projects",
-    "Unlimited projects",
-    "Unlimited projects",
-    "Unlimited projects",
-  ],
-
-  [
-    "Visual Builder",
-    "Included",
-    "Included",
-    "Included",
-    "Included",
-  ],
-
-  [
-    "Database & Auth",
-    "Included",
-    "Included",
-    "Included",
-    "Included",
-  ],
-
-  [
-    "Deployment",
+    "Visual app builder",
+    "Built-in database & auth",
     "One-click deployment",
-    "Faster deployment",
-    "Production hosting",
-    "Dedicated infrastructure",
+    "Hosted on OneAtlas domain",
+    "Core AI generation tools",
   ],
 
-  [
-    "Custom Domains",
-    "—",
-    "Included",
-    "Included",
-    "Included",
-  ],
-
-  [
-    "Backend APIs",
-    "—",
-    "Included",
-    "Included",
-    "Included",
-  ],
-
-  [
-    "Code Editing",
-    "—",
-    "Included",
-    "Included",
-    "Included",
-  ],
-
-  [
-    "GitHub Sync",
-    "—",
-    "Included",
-    "Included",
-    "Included",
-  ],
-
-  [
-    "Branding Control",
-    "OneAtlas branding",
-    "Remove branding",
-    "Remove branding",
-    "Remove branding",
-  ],
-
-  [
-    "AI Model Access",
-    "Core AI tools",
-    "Core AI tools",
-    "Advanced AI models",
-    "Premium AI routing",
-  ],
-
-  [
-    "Team Workspace",
-    "—",
-    "—",
-    "Shared workspace",
-    "Advanced permissions",
-  ],
-
-  [
-    "Analytics",
-    "—",
-    "—",
-    "Analytics & monitoring",
-    "Audit logs & insights",
-  ],
-
-  [
-    "SEO Optimization",
-    "—",
-    "—",
-    "Included",
-    "Included",
-  ],
-
-  [
-    "Authentication",
-    "—",
-    "—",
-    "—",
-    "Enterprise SSO/SAML",
-  ],
-
-  [
-    "Support",
-    "Community",
+  Studio: [
+    "150 AI build credits",
+    "5,000 automation credits",
+    "Custom domains",
+    "Backend functions & APIs",
+    "In-app code editing",
+    "GitHub synchronization",
+    "Remove OneAtlas branding",
+    "Faster build & deployment",
     "Standard support",
-    "Priority support",
-    "Slack support",
   ],
-];
+
+  Scale: [
+    "500 AI build credits",
+    "20,000 automation credits",
+    "Advanced AI model access",
+    "Production-grade hosting",
+    "Shared team workspace",
+    "App analytics & monitoring",
+    "SEO optimization",
+    "Staging environments",
+    "Priority support",
+    "Early access to new features",
+  ],
+
+  Orbit: [
+    "1,500 AI build credits",
+    "75,000 automation credits",
+    "Premium AI model routing",
+    "Dedicated infrastructure",
+    "Advanced permissions",
+    "Enterprise SSO/SAML",
+    "Audit logs & usage insights",
+    "Dedicated onboarding",
+    "Slack-based support",
+    "White-glove migration",
+  ],
+};
 
 const categories = [
   {
@@ -191,7 +110,6 @@ const categories = [
       },
     ],
   },
-
   {
     label: "Pricing",
     items: [
@@ -213,7 +131,6 @@ const categories = [
       },
     ],
   },
-
   {
     label: "Features",
     items: [
@@ -235,7 +152,6 @@ const categories = [
       },
     ],
   },
-
   {
     label: "Enterprise",
     items: [
@@ -306,9 +222,7 @@ export default function PricingPage() {
 
         <h1 className="mx-auto mt-5 max-w-[1200px] text-[42px] font-bold leading-[0.9] tracking-[-0.05em] md:text-[56px]">
           Simple pricing.{" "}
-          <span className="text-[#FF6600]">
-            Unlimited possibilities.
-          </span>
+          <span className="text-[#FF6600]">Unlimited possibilities.</span>
         </h1>
 
         <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-7 text-[#6B7280]">
@@ -329,112 +243,93 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1280px] px-5 pb-6 md:px-8">
-        <div className="overflow-x-auto overflow-y-visible rounded-[28px] border border-[#E5E7EB] bg-white pt-4 shadow-[0_1px_2px_rgba(0,0,0,0.02),0_4px_24px_rgba(0,0,0,0.03)]">
-          <div className="min-w-[1080px]">
+      <section className="mx-auto max-w-[1280px] px-5 pb-8 md:px-8">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {plans.map((plan) => {
+            const features = planFeatures[plan.name] || [];
 
-            <div className="grid grid-cols-[170px_repeat(4,1fr)] border-b border-[#ECECEC]">
-              <div className="px-5 py-4 text-sm font-semibold">
-                Features
-              </div>
+            return (
+              <div
+                key={plan.name}
+                className={`relative flex min-h-[710px] flex-col rounded-[24px] border bg-white p-7 shadow-[0_1px_2px_rgba(0,0,0,0.02),0_4px_24px_rgba(0,0,0,0.03)] transition hover:-translate-y-1 ${
+                  plan.highlighted
+                    ? "border-[#FF6600]"
+                    : "border-[#E5E7EB]"
+                }`}
+              >
+                {plan.highlighted && (
+                  <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FF6600] px-4 py-1 text-xs font-semibold text-white">
+                    Most Popular
+                  </div>
+                )}
 
-              {plans.map((plan) => (
-                <div
-                  key={plan.name}
-                  className={`relative border-l px-5 py-4 ${
-                    plan.highlighted
-                      ? "border-x-2 border-t-2 border-[#FF6600] bg-[#FFF7F1]"
-                      : "border-[#ECECEC]"
-                  }`}
-                >
-                  {plan.highlighted && (
-                    <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FF6600] px-4 py-1 text-[11px] font-semibold text-white">
-                      Most Popular
-                    </div>
-                  )}
-
-                  <h2 className="text-[22px] font-semibold">
+                <div>
+                  <h2 className="text-[22px] font-semibold tracking-[-0.02em]">
                     {plan.name}
                   </h2>
 
-                  <p className="mt-1 text-[13px] leading-5 text-[#6B7280]">
+                  <p className="mt-3 min-h-10 text-sm leading-6 text-[#6B7280]">
                     {plan.subtitle}
                   </p>
                 </div>
-              ))}
-            </div>
 
-            <div className="grid grid-cols-[170px_repeat(4,1fr)] border-b border-[#ECECEC]">
-              <div className="px-4 py-3 text-sm font-semibold">
-                Pricing
-              </div>
+                <div className="mt-8">
+                  <span className="text-5xl font-bold tracking-[-0.05em]">
+                    {plan.price}
+                  </span>
 
-              {plans.map((plan) => (
-                <div
-                  key={plan.name}
-                  className={`border-l px-4 py-3 text-[28px] font-semibold tracking-[-0.03em] ${
+                  {plan.suffix && (
+                    <span className="ml-1 text-sm text-[#6B7280]">
+                      {plan.suffix}
+                    </span>
+                  )}
+                </div>
+
+                <p className="mt-3 text-xs text-[#9CA3AF]">
+                  {plan.name === "Explorer" ? "Free forever" : "Billed annually"}
+                </p>
+
+                <button
+                  className={`mt-8 h-12 rounded-xl text-sm font-semibold transition ${
                     plan.highlighted
-                      ? "border-x-2 border-[#FF6600] bg-[#FFF7F1]"
-                      : "border-[#ECECEC]"
+                      ? "bg-[#FF6600] text-white hover:bg-[#E65C00]"
+                      : "border border-[#E5E7EB] bg-white text-[#111111] hover:border-[#FF6600] hover:bg-[#FF6600] hover:text-white"
                   }`}
                 >
-                  {plan.price}
-                </div>
-              ))}
-            </div>
+                  {plan.cta}
+                </button>
 
-            {rows.map((row) => (
-              <div
-                key={row[0]}
-                className="grid grid-cols-[170px_repeat(4,1fr)] border-b border-[#ECECEC] last:border-b-0"
-              >
-                <div className="flex items-center gap-2 px-4 py-3 text-sm font-semibold">
-                  <span className="h-2 w-2 shrink-0 rounded-full bg-[#FF6600]" />
-                  <span>{row[0]}</span>
-                </div>
+                <div className="my-7 h-px bg-[#E5E7EB]" />
 
-                {row.slice(1).map((value, index) => (
-                  <div
-                    key={value + index}
-                    className={`border-l px-4 py-3 text-sm leading-6 ${
-                      index === 2
-                        ? "border-x-2 border-[#FF6600] bg-[#FFF7F1]"
-                        : "border-[#ECECEC]"
-                    }`}
-                  >
-                    {value}
-                  </div>
-                ))}
+                {plan.previous && (
+                  <p className="mb-4 text-xs font-semibold text-[#9CA3AF]">
+                    Everything in {plan.previous}, plus:
+                  </p>
+                )}
+
+                <ul className="space-y-3">
+                  {features.map((feature) => (
+                    <li
+                      key={feature}
+                      className="flex gap-3 text-sm leading-6 text-[#111111]"
+                    >
+                      <span
+                        className={`mt-0.5 ${
+                          plan.highlighted
+                            ? "text-[#FF6600]"
+                            : "text-[#6B7280]"
+                        }`}
+                      >
+                        ✓
+                      </span>
+
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            ))}
-
-            <div className="grid grid-cols-[170px_repeat(4,1fr)]">
-              <div className="px-4 py-4 text-sm font-semibold">
-                Get Started
-              </div>
-
-              {plans.map((plan, index) => (
-                <div
-                  key={plan.cta}
-                  className={`border-l px-4 py-4 ${
-                    index === 2
-                      ? "border-x-2 border-b-2 border-[#FF6600] bg-[#FFF7F1]"
-                      : "border-[#ECECEC]"
-                  }`}
-                >
-                  <button
-                    className={`h-10 w-full rounded-xl text-sm font-semibold transition ${
-                      index === 2
-                        ? "bg-[#FF6600] text-white hover:bg-[#E65C00]"
-                        : "border border-[#E5E7EB] bg-white hover:bg-[#FAFAFA]"
-                    }`}
-                  >
-                    {plan.cta}
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
+            );
+          })}
         </div>
       </section>
 
@@ -445,7 +340,8 @@ export default function PricingPage() {
           </h2>
 
           <p className="mt-4 max-w-2xl text-[15px] leading-7 text-white/90">
-            Custom infrastructure & deployment solutions for modern organizations.
+            Custom infrastructure & deployment solutions for modern
+            organizations.
           </p>
 
           <div className="mt-6 flex flex-col gap-3 text-sm text-white/90">
@@ -512,9 +408,7 @@ export default function PricingPage() {
                     >
                       <span
                         className={`text-[15px] font-semibold ${
-                          isOpen
-                            ? "text-[#FF6600]"
-                            : "text-[#111111]"
+                          isOpen ? "text-[#FF6600]" : "text-[#111111]"
                         }`}
                       >
                         {item.q}
@@ -522,9 +416,7 @@ export default function PricingPage() {
 
                       <span
                         className={`text-xl transition ${
-                          isOpen
-                            ? "rotate-45 text-[#FF6600]"
-                            : "text-[#9CA3AF]"
+                          isOpen ? "rotate-45 text-[#FF6600]" : "text-[#9CA3AF]"
                         }`}
                       >
                         +
