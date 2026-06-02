@@ -133,9 +133,9 @@ export default function SupportPage() {
 
         <div className="hidden justify-center md:flex">
           <div className="relative h-[300px] w-[300px] rounded-full border border-[#E5E7EB]">
-            <div className="absolute left-1/2 top-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FF6600]/20 blur-2xl" />
+           <div className="absolute left-1/2 top-1/2 h-36 w-36 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FF6600]/30 blur-3xl" />
 
-            <div className="absolute left-1/2 top-1/2 flex h-24 w-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#FF6600] text-white">
+            <div className="absolute left-1/2 top-1/2 flex h-24 w-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#FF6600] text-white shadow-[0_0_60px_rgba(255,102,0,0.35)]">
               <MessageCircle size={36} />
             </div>
           </div>
@@ -147,10 +147,13 @@ export default function SupportPage() {
           {quickActions.map((item) => (
             <div
               key={item.title}
-              className="rounded-[22px] border border-[#E5E7EB] bg-white p-6 transition hover:-translate-y-1 hover:border-[#FF6600]"
+              className="group rounded-[22px] border border-[#E5E7EB] bg-white p-6 transition hover:-translate-y-1 hover:border-[#FF6600]"
             >
-              <div className="mb-4 text-[#FF6600]">{item.icon}</div>
-
+             <div className="mb-4">
+  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FFF7F1] text-[#FF6600] shadow-[0_0_30px_rgba(255,102,0,0.18)] transition duration-300 group-hover:shadow-[0_0_40px_rgba(255,102,0,0.25)]">
+    {item.icon}
+  </div>
+</div>
               <h3 className="font-semibold">{item.title}</h3>
 
               <p className="mt-2 text-sm leading-6 text-[#6B7280]">
@@ -174,11 +177,13 @@ export default function SupportPage() {
           {topics.map((topic) => (
             <div
               key={topic.title}
-              className="rounded-[22px] border border-[#E5E7EB] bg-white p-6 text-center transition hover:-translate-y-1 hover:border-[#FF6600]"
+              className="group rounded-[22px] border border-[#E5E7EB] bg-white p-6 text-center transition hover:-translate-y-1 hover:border-[#FF6600]"
             >
-              <div className="flex justify-center text-[#FF6600]">
-                {topic.icon}
-              </div>
+              <div className="flex justify-center">
+  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#FFF7F1] text-[#FF6600] shadow-[0_0_30px_rgba(255,102,0,0.18)] transition duration-300 group-hover:shadow-[0_0_45px_rgba(255,102,0,0.28)]">
+    {topic.icon}
+  </div>
+</div>
 
               <h3 className="mt-5 font-semibold">{topic.title}</h3>
 
@@ -215,10 +220,9 @@ export default function SupportPage() {
         </div>
 
         <div className="rounded-[24px] border border-[#E5E7EB] bg-white p-7">
-          <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FFF7F1] text-[#FF6600]">
-            <MessageCircle size={24} />
-          </div>
-
+          <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#FFF7F1] text-[#FF6600] shadow-[0_0_35px_rgba(255,102,0,0.22)]">
+  <MessageCircle size={24} />
+</div>
           <h3 className="text-xl font-semibold">Still need help?</h3>
 
           <p className="mt-3 text-sm leading-6 text-[#6B7280]">
